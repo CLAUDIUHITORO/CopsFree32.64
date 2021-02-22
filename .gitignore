@@ -1,3 +1,8 @@
+if gg.PACKAGE ~= "gg.wavetop.undetect_" then
+print("Script lock in gg.PACKAGE [gg.wavetop.undetect_]. Your gg.PACKAGE [" .. gg.PACKAGE .. "]\nВаш ГГ полное говно, скачайте гг от Samp4itok.")
+return
+end
+
 function MAINMENU() 
 mainmenu = gg.choice({
 '32 Bit',
