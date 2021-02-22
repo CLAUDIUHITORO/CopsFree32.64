@@ -1,41 +1,76 @@
-# Compiled Lua sources
-luac.out
+function MAINMENU() 
+mainmenu = gg.choice({
+'32 Bit',
+'64 Bit',
+'Exit'},nil,'➪Hackers Family')
+if mainmenu == 1 then test1() end 
+if mainmenu == 2 then test2() end
+if mainmenu == 3 then exit() end 
+MAINMENUVISIBLE = -1 
+end 
 
-# luarocks build files
-*.src.rock
-*.zip
-*.tar.gz
+function test1()
+t1 = gg.multiChoice({
+'Esp Radar',
+'No Recoil',
+'Back'},nil,'32 Bit')
+if t1 [1] == true then radar() end
+if t1 [2] == true then recoil() end
+if t1 [3] == true then MAINMENU() end 
+end
 
-# Object files
-*.o
-*.os
-*.ko
-*.obj
-*.elf
+function radar()
+gg.setRanges(gg.REGION_CODE_APP)
+gg.searchNumber("h010050e31600001a000055e30100001a0000a0e", gg.TYPE_BYTE, false, gg.SIGN_EQUAL, 0, -1)
+gg.getResults(1)
+gg.editAll("2", gg.TYPE_BYTE)
+gg.clearResults()
+gg.toast("Esp Radar 32 Bit On")
+end
 
-# Precompiled Headers
-*.gch
-*.pch
+function recoil()
+gg.setRanges(gg.REGION_CODE_APP)
+gg.searchNumber("0.001", gg.TYPE_FLOAT, false, gg.SIGN_EQUAL, 0, -1)
+gg.getResults(700)
+gg.editAll("0.0002", gg.TYPE_FLOAT)
+gg.clearResults()
+gg.toast("No Recoil 32 Bit On")
+end
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
-*.def
-*.exp
+function test2()
+t2 = gg.multiChoice({
+'Esp Radar',
+'No Recoil',
+'Back'},nil,'64 Bit')
+if t2 [1] == true then radar64() end
+if t2 [2] == true then recoil64() end
+if t2 [3] == true then MAINMENU() end 
+end
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
+function radar64()
+gg.setRanges(gg.REGION_CODE_APP)
+gg.searchNumber("hc0 02 00 36 74 00 00 b5 e0 03 1f aa 35 76 f3 97 e0 03 14 aa e1 03 1f aa 8c c9 02 94 f4 03 00 aa 54 00 00 b5 2f 76 f3 97 94 8e 40 f9 74 00 00 b5 e0 03 1f aa 2b 76 f3 97 a8 ff 00 90 08 ad 45 f9 e0 03 14 aa 01 01 40 f9 ", gg.TYPE_BYTE, false, gg.SIGN_EQUAL, 0, -1)
+gg.getResults(72)
+gg.editAll("hc0 02 08 36", gg.TYPE_BYTE)
+gg.clearResults()
+gg.toast("Esp Radar 64 Bit On")
+end
 
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
+function recoil64()
+gg.setRanges(gg.REGION_CODE_APP)
+gg.searchNumber("heb 2b bb 6d e9 23 01 6d f5 13 00 f9 f4 4f 03 a9 fd 7b 04 a9 fd 03 01 91 f3 03 00 aa 74 36 40 f9 68 1a 40 bd 74 00 00 b5 e0 03 1f aa e2 a1 ef 97 80 d6 40 bd 74 3e 40 f9 00 29 20 1e 60 1a 00 bd 74 00 00 b5 e0 03 1f aa ", gg.TYPE_BYTE, false, gg.SIGN_EQUAL, 0, -1, 0)
+gg.getResults(72)
+gg.editAll("h20 00 80 D2 C0 03 5F D6", gg.TYPE_BYTE)
+gg.clearResults()
+gg.toast("No Recoil 64 Bit On")
+end
 
+function exit() 
+os.exit() 
+end 
+while true do 
+if gg.isVisible(true) then 
+MAINMENUVISIBLE = 1 
+gg.setVisible(false) end 
+if MAINMENUVISIBLE == 1 then 
+MAINMENU () end 
